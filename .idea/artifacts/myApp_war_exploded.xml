@@ -18,6 +18,7 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-instrument:4.0.3.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-webmvc:4.0.3.RELEASE" />
           <element id="library" level="project" name="Maven: taglibs:standard:1.1.2" />
+          <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.6" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="myApp/web/Web" />
