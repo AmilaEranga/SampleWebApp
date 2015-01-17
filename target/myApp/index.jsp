@@ -7,6 +7,7 @@
 
 <body>
 <div id="frmBox">
+    <h1>Login Here</h1>
     <form action="http://localhost:8080/myApp/home" method="GET" target="_blank" id="frm">
         <label>First name:</label>
         <input type="text" name="firstName" placeholder="FirstName">
