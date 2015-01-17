@@ -1,11 +1,11 @@
-#frmBox{
+#frmBox {
     background-color: black;
     width: 300px;
     height: 200px;
 
     /* align form box in center */
     position: absolute;
-    top:0;
+    top: 0;
     bottom: 0;
     left: 0;
     right: 0;
@@ -14,11 +14,11 @@
     padding: 40px;
 }
 
-label{
+label {
     color: white;
 }
 
-h1{
+h1 {
     background-color: black;
     color: white;
     margin: 0 auto;

@@ -1,4 +1,4 @@
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>MyApp</title>
@@ -8,6 +8,7 @@
 <body>
 <div id="frmBox">
     <h1>Login Here</h1>
+
     <form action="http://localhost:8080/myApp/home" method="GET" target="_blank" id="frm">
         <label>First name:</label>
         <input type="text" name="firstName" placeholder="FirstName">

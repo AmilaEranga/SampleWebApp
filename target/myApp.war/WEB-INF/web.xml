@@ -1,5 +1,5 @@
 <web-app>
-  <display-name>Archetype Created Web Application</display-name>
+    <display-name>Archetype Created Web Application</display-name>
 
     <servlet>
         <servlet-name>mvc-dispatcher</servlet-name>
