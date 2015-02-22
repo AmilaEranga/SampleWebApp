@@ -1,7 +1,7 @@
-#frmBox {
+.frmBox {
     background-color: black;
-    width: 300px;
-    height: 200px;
+    width: 400px;
+    height: 250px;
 
     /* align form box in center */
     position: absolute;
@@ -16,6 +16,8 @@
 
 label {
     color: white;
+    display: inline-block;
+    width: 200px;
 }
 
 h1 {
@@ -24,4 +26,19 @@ h1 {
     margin: 0 auto;
     text-align: center;
     padding: 15px;
+}
+
+.log-button{
+    width: 100px;
+    margin-right: 98;
+    background-color: white;
+}
+
+.messageBar{
+    display: block;
+    height: 50px;
+}
+
+.messageText{
+    color: coral;
 }

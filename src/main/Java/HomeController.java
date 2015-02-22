@@ -1,15 +1,20 @@
 package main.Java;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.naming.InitialContext;
-import javax.sql.DataSource;
-import java.sql.*;
-import java.util.logging.Logger;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
+
 
 /**
  * @author amila
@@ -20,65 +25,55 @@ public class HomeController {
 
     private static final String view = "Home";
 
-    Logger log = Logger.getLogger(HomeController.class.getName());
+    Logger log = LoggerFactory.getLogger(HomeController.class.getName());
 
-    @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView redirect(@RequestParam("firstName") String fName, @RequestParam("lastName") String lName) {
+    @RequestMapping(method = RequestMethod.POST)
+    public ModelAndView redirect(@RequestParam("userName") String userName, @RequestParam("password") String password) {
+
         ModelAndView modelAndView = new ModelAndView(view);
-        modelAndView.addObject("firstName", fName);
-        modelAndView.addObject("lastName", lName);
 
-
-        // test begins
-
-        ///String data = getData();
-        String data2 = testConnect();
-
-        // test ends
+        Map<String, String> userData = getData();
+        if (userData.get(userName) != null && userData.get(userName).equals(password)) {
+            modelAndView.addObject("firstName", userName);
+        } else {
+            modelAndView.addObject("error", "login error, invalid username password combination");
+        }
         return modelAndView;
     }
 
-    //this sucks
-    private String getData() {
-        Connection conn = null;
-        Statement st = null;
-        ResultSet rs = null;
-        StringBuilder sb = new StringBuilder();
+    private Map<String, String> getData() {
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        Map<String, String> resultMap = new HashMap<String, String>();
         try {
-            InitialContext ctx = new InitialContext();
-            DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/myAppDB");
 
-            // This works too
-            // Context envCtx = (Context) ctx.lookup("java:comp/env");
-            // DataSource ds = (DataSource) envCtx.lookup("jdbc/TestDB");
+            connection = ConnectionUtils.getConnection();
 
-            conn = ds.getConnection();
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM user");
 
-            st = conn.createStatement();
-            rs = st.executeQuery("SELECT * FROM user");
+            while (resultSet.next()) {
+                String firstName = resultSet.getString("first_name");
+                String password = resultSet.getString("password");
 
-            while (rs.next()) {
-                String id = rs.getString("id");
-                String firstName = rs.getString("first_name");
-                String lastName = rs.getString("last_name");
-                sb.append("ID: ").append(id).append(", First Name: ").append(firstName).append(", Last Name: ").append(lastName).append("<br/>");
+                resultMap.put(firstName, password);
             }
         } catch (Exception ex) {
-            log.info("error occurred executing query " + ex);
+            log.error("error occurred executing query ", ex);
         } finally {
             try {
-                if (rs != null) rs.close();
-                if (st != null) st.close();
-                if (conn != null) conn.close();
+                if (resultSet != null) resultSet.close();
+                if (statement != null) statement.close();
+                if (connection != null) connection.close();
             } catch (SQLException e) {
-                log.info("sql exception occurred " + e);
+                log.error("Sql exception getting user data occurred", e);
             }
         }
-        return sb.toString();
+        return resultMap;
     }
 
-    //this works
-    public String testConnect() {
+/*    public String testConnect() {
         String dbUrl = "jdbc:mysql://localhost/myAppDB";
         String dbClass = "com.mysql.jdbc.Driver";
         String query = "Select * from user";
@@ -106,7 +101,5 @@ public class HomeController {
             log.info("sql exception occurs");
         }
         return output.toString();
-    }
-
-
+    }*/
 }

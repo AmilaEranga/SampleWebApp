@@ -45,7 +45,7 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-webmvc:4.0.3.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: taglibs:standard:1.1.2" level="project" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.6" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: log4j:log4j:1.2.15" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.slf4j:slf4j-api:1.7.1" level="project" />
   </component>
 </module>
 
